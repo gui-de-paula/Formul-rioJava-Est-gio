@@ -5,8 +5,8 @@ public class Menu {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Cadastro> formularios = new ArrayList<>();
-        int escolha,tamanho,a;
-        short j,y=0;
+        int escolha, tamanho, a;
+        short j, y = 0;
 //        boolean newCadastro;
         System.out.println("                                   Seja bem vindo á central de formulário!!\n");
         do {
@@ -23,7 +23,7 @@ public class Menu {
             System.out.println("|  \t Opção:                            |" + "\n" +
                     "|______________________________________|");
 
-             escolha = scanner.nextInt();
+            escolha = scanner.nextInt();
 
 
             switch (escolha) {
@@ -35,15 +35,14 @@ public class Menu {
                     System.out.println("****Formulario cadastrado!!****\n");
                     break;
                 case 2:
-            if(formularios.size()>0){
-                for(j=0;j<formularios.size();j++){
-                    formularios.get(j).mostraForm();
-                }
-            }
-            else{
-                System.out.println("Não há formulário cadastrado!!\tPor favor cadastre um formulário");
-            }
-                        break;
+                    if (formularios.size() > 0) {
+                        for (j = 0; j < formularios.size(); j++) {
+                            formularios.get(j).mostraForm();
+                        }
+                    } else {
+                        System.out.println("Não há formulário cadastrado!!\tPor favor cadastre um formulário");
+                    }
+                    break;
 
                 case 3:
                     if (formularios.size() > 0) {
@@ -53,15 +52,14 @@ public class Menu {
                             System.out.println("****Formulário excluido com sucesso!!****\n");
                         }
                         System.out.println("**** Digite o numero do formulario que deseja excluir" + "\n");
-                        tamanho=formularios.size();
-                        for ( a=0;a<tamanho;a++){
-                            System.out.println("Formulário " + (a+1) + "\n");
+                        tamanho = formularios.size();
+                        for (a = 0; a < tamanho; a++) {
+                            System.out.println("Formulário " + (a + 1) + "\n");
                         }
                         short idFormulario = scanner.nextShort();
-                        if(idFormulario<=tamanho && idFormulario>0) {
+                        if (idFormulario <= tamanho && idFormulario > 0) {
                             formularios.remove((idFormulario - 1));
-                        }
-                        else {
+                        } else {
                             System.out.println("Formulário inexistente!!");
                         }
                     } else {
@@ -70,19 +68,25 @@ public class Menu {
                     break;
 
                 case 4:
-                    Cadastro cadastroEdit = new Cadastro();
+                    Cadastro editaCadastro = new Cadastro();
                     if (formularios.size() > 0) {
                         for (int i = 0; i < formularios.size(); i++) {
-                            System.out.print((i + 1) + " - " +" [ ");
+                            System.out.print("\n" + (i + 1) + " - ");
                             formularios.get(i).mostraForm();
-                            System.out.println("]");
                         }
-                        System.out.println("**** Digite o número do contato que deseja Editar ****");
-//                        short indiceCadastro = scanner.nextShort();
-//                        cadastroEdit = formularios.get((indiceCadastro - 1));
-//                        cadastroEdit.editaCadastro();
-//                        formularios.set((indiceCadastro-1), cadastroEdit);
-
+                        System.out.println("**** Informe o número do Formulário que deseja Editar ****");
+                        short idForm = scanner.nextShort();
+                        if (idForm <= formularios.size() && idForm > 0) {
+                            editaCadastro = formularios.get((idForm - 1));
+                            editaCadastro.editarFormulario();
+                            formularios.set((idForm - 1), editaCadastro);
+                        } else {
+                            do {
+                                System.out.println("O formulário informado não existe!!" +
+                                        "Por favor insira um numero válido: ");
+                                idForm = scanner.nextShort();
+                            } while (idForm > formularios.size() || idForm <= 0);
+                        }
                     } else {
                         System.out.println("Não existem cadastros para serem Editados");
                     }
@@ -96,9 +100,9 @@ public class Menu {
 
                 default:
                     System.out.println("Opção invalida!!\t Por favor insira uma opção valida\n");
-          }
+            }
 
-        }while (escolha !=5);
+        } while (escolha != 5);
         scanner.close();
     }
 

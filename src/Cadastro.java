@@ -12,15 +12,6 @@ public class Cadastro {
 //    public InfoPessoais getInfo() {
 //        return info;
 //    }
-//
-//    public Acesso getAcesso() {
-//        return acesso;
-//    }
-//
-//    public void setAcesso(Acesso acesso) {
-//        this.acesso = acesso;
-//    }
-//
 //    public Endereco getEndereco() {
 //        return endereco;
 //    }
@@ -41,9 +32,9 @@ public class Cadastro {
         System.out.println("********* FORMULÁRIO *********");
         System.out.println("\n\n********* Informações Pessoais *********" + "\n" +
                 "- Nome: " + this.info.getNome() + "\n" +
+                "- Email: " +this.info.getEmail() + "\n" +
                 "- CPF: " + this.info.getCpf() + "\n" +
                 "- Data: " + this.info.getData() + "\n" +
-                "- Genero: " + this.info.getGenero() + "\n" +
                 "- Escolaridade: " + this.info.getEscolaridade() + "\n" +
                 "- ID: " + this.id + "\n");
 
@@ -65,10 +56,10 @@ public class Cadastro {
         this.info = new InfoPessoais();
 
         this.info.setNome(setInserir("Seu nome:", "nome"));
+        this.info.setEmail(setInserir("Seu email:", "email"));
         this.info.setCpf(setInserir("Seu CPF:", "cpf"));
         this.info.setData(setInserir("Sua data de nascimento:", "data"));
         this.info.setEscolaridade(setInserir("Sua escolaridade:", "escolaridade"));
-        this.info.setEmail(setInserir("Seu email:", "email"));
 
     }
 
@@ -104,7 +95,7 @@ public class Cadastro {
                     "|    2 - Mostrar Contatos existentes               |" + "\n" +
                     "|    3 - Excluir Contato existente                 |" + "\n" +
                     "|    4 - Finalizar cadastro de Contatos            |");
-            System.out.println("|   ******************************************    |");
+            System.out.println("|   ******************************************     |");
 
             escolhaContato = scanner.nextInt();
             scanner.nextLine();
@@ -121,7 +112,7 @@ public class Cadastro {
 
                 case 2:
                     for (int i = 0; i < contatos.size(); i++) {
-                        System.out.println("*** Contato " + (i + 1) + " ****");
+                        System.out.println("\n\t*** Contato " + (i + 1) + " ****");
                         System.out.println(contatos.get(i).mostrarContatos());
                     }
                     System.out.println("*******************************************");
@@ -148,46 +139,64 @@ public class Cadastro {
         } while (newContato);
     }
 
-    //    public void editaCadastro() {
-//
-//        boolean editaCadastros = true;
-//
-//        System.out.println("***** EDIÇÃO DE CADASTRO *****");
-//        do {
-//            System.out.println("***** Selecione a Opção que deseja *****" + "\n" +
-//                    "1 - Editar Dados Pessoais do Titular        |" + "\n" +
-//                    "2 - Editar Endereço do Titular              |" + "\n" +
-//                    "3 - Editar Contatos Alternativos            |" + "\n" +
-//                    "4 - Sair da Edição                          |");
-//            System.out.println("*******************************************");
-//
-//            short opcaoEditaCadastro = scanner.nextShort();
-//
-//            switch (opcaoEditaCadastro) {
-//                case 1:
-//                    this.info.editaPessoa();
-//                    break;
-//
-//                case 2:
-//                    this.endereco.editaEndereco();
-//                    break;
-//
-//                case 3:
+        public void editarFormulario() {
+
+        boolean editarFormulario = true;
+
+        System.out.println("        ***** EDIÇÃO DE FORMULÁRIO *****");
+        do {
+            System.out.println("     Selecione a Opção que deseja  " + "\n" +
+                    "  |  1 - Editar Informações Pessoais         |" + "\n" +
+                    "  |  2 - Editar Endereço                     |" + "\n" +
+                    "  |  3 - Editar Contatos                     |" + "\n" +
+                    "  |  4 - Sair da Edição                      |");
+            System.out.println("    *****************************************");
+
+            short opcaoEditarForm = scanner.nextShort();
+
+            switch (opcaoEditarForm) {
+                case 1:
+                    this.info.editarInfo();
+                    break;
+
+                case 2:
+                    this.endereco.editarEndereco();
+                    break;
+
+                case 3:
+                    Contatos editarContato = new Contatos();
+                    for (int aux = 0; aux < contatos.size(); aux++) {
+                        System.out.print("["+(aux + 1) + "] -" + "\t****Contato " + (aux+1)+" ****");
+                        System.out.println(contatos.get(aux).mostrarContatos());
+                    }
+                    System.out.println("**** Informe o número do contato que deseja Editar ****");
+                    short idContato = scanner.nextShort();
+                    if (idContato <= contatos.size() && idContato > 0) {
+                        editarContato = contatos.get((idContato - 1));
+                        editarContato.editarContatos();
+                        contatos.set((idContato - 1), editarContato);
+                    } else {
+                        do {
+                            System.out.println("O formulário informado não existe!!" +
+                                    "Por favor insira um numero válido: ");
+                            idContato = scanner.nextShort();
+                        } while (idContato > contatos.size() || idContato <= 0);
+                    }
 //                    cadastrarContatos();
-//                    break;
-//
-//                case 4:
-//                    editaCadastros = false;
-//                    break;
-//
-//                default:
-//                    System.out.println("Valor inválido, digite uma opção válida por favor");
-//                    break;
-//            }
-//
-//        } while (editaCadastros);
-//
-//    }
+                    break;
+
+                case 4:
+                    editarFormulario = false;
+                    break;
+
+                default:
+                    System.out.println("Valor inválido, digite uma opção válida por favor");
+                    break;
+            }
+
+        } while (editarFormulario);
+
+    }
     public boolean isLetter(String campo) {
         String campoAux = campo.trim();
         campoAux = campoAux.toUpperCase();

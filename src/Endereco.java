@@ -9,55 +9,53 @@ public class Endereco {
     public String getCidade() {
         return cidade;
     }
-
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    private void editaCidade(){
+    private void editarCidade(){
         System.out.println("Digite a nova cidade");
-        String city = scanner.nextLine();
-        this.cidade = city;
+        String novoCidade = scanner.nextLine();
+        this.cidade = novoCidade;
     }
+
     public String getEstado() {
         return estado;
     }
-
     public void setEstado(String estado) {
         this.estado = estado;
     }
     private void editaEstado(){
         System.out.println("Insira o novo Estado");
-        String state = scanner.nextLine();
-        this.estado = state;
+        String novoEstado = scanner.nextLine();
+        this.estado = novoEstado;
     }
 
     public String getSetor() {
         return setor;
     }
-
     public void setSetor(String setor) {
         this.setor = setor;
     }
-    private void editaSetor(){
+    public void editarSetor(){
         System.out.println("Insira o novo Setor");
-        String setorNovo = scanner.nextLine();
-        this.setor = setorNovo;
+        String novoSetor = scanner.nextLine();
+        this.setor = novoSetor;
     }
 
     public String getComplemento() {
         return complemento;
     }
-
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-    private void editaComplemento(){
+    public void editaComplemento(){
         System.out.println("Insira o novo Complemento");
-        String complement = scanner.nextLine();
-        this.complemento = complement;
+        String novoComplemento = scanner.nextLine();
+        this.complemento = novoComplemento;
     }
-    public void editaEndereco(){
-        boolean editaEndereco = true;
+
+    public void editarEndereco(){
+        boolean editarEndereco = true;
 
         do {
             System.out.println("***** Selecione a Opção que deseja *****" + "\n" +
@@ -72,7 +70,7 @@ public class Endereco {
 
             switch (escolhaEditaEnderco) {
                 case 1:
-                    editaCidade();
+                    editarCidade();
                     break;
 
                 case 2:
@@ -80,7 +78,7 @@ public class Endereco {
                     break;
 
                 case 3:
-                    editaSetor();
+                    editarSetor();
                     break;
 
                 case 4:
@@ -88,7 +86,7 @@ public class Endereco {
                     break;
 
                 case 5:
-                    editaEndereco = false;
+                    editarEndereco = false;
                     break;
 
                 default:
@@ -96,7 +94,6 @@ public class Endereco {
                     break;
 
             }
-        } while (editaEndereco);
+        } while (editarEndereco);
     }
-
 }
